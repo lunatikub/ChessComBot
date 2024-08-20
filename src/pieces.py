@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 A chess piece, or chessman, is a game piece that is placed
 on a chessboard to play the game of chess. It can be either
@@ -51,6 +49,9 @@ class Piece():
         assert filepath.exists(), f"File {filepath} doesn't exist..."
         template = cv2.imread(filepath)
         return cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+
+    def __eq__(self, other):
+        return self.color == other.color and self.type == other.type
 
 
 NP = Piece(PieceColor.NONE, PieceType.NONE, ".")
