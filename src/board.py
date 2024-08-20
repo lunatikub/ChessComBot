@@ -9,7 +9,7 @@ import numpy as np
 from utils import parse_move
 
 from pieces import (
-    Piece, PieceColor, NP,
+    Piece, PieceColor, ep,
     BR, BN, BB, BQ, BK, BP,
     WR, WN, WB, WQ, WK, WP,
 )
@@ -45,10 +45,10 @@ class Board():
         self.b = [
             [BR, BN, BB, BQ, BK, BB, BN, BR],
             [BP, BP, BP, BP, BP, BP, BP, BP],
-            [NP, NP, NP, NP, NP, NP, NP, NP],
-            [NP, NP, NP, NP, NP, NP, NP, NP],
-            [NP, NP, NP, NP, NP, NP, NP, NP],
-            [NP, NP, NP, NP, NP, NP, NP, NP],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
             [WP, WP, WP, WP, WP, WP, WP, WP],
             [WR, WN, WB, WQ, WK, WB, WN, WR],
         ]
@@ -75,7 +75,7 @@ class Board():
         x1, y1 = get_filerank(from_square)
         x2, y2 = get_filerank(to_square)
         self.b[y2][x2] = self.b[y1][x1]
-        self.b[y1][x1] = NP
+        self.b[y1][x1] = ep
 
     def diff(self, board):
         """
@@ -93,7 +93,7 @@ class Board():
         """
         assert len(diff) == 2
         for d in diff:
-            if (d[3] == NP):
+            if (d[3] == ep):
                 from_square = REVERSE_FILES_MAP[d[1]] + REVERSE_RANKS_MAP[d[0]]
             else:
                 to_square = REVERSE_FILES_MAP[d[1]] + REVERSE_RANKS_MAP[d[0]]

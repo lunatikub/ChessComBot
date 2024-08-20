@@ -54,7 +54,7 @@ class Piece():
         return self.color == other.color and self.type == other.type
 
 
-NP = Piece(PieceColor.NONE, PieceType.NONE, ".")
+ep = Piece(PieceColor.NONE, PieceType.NONE, ".") # empty square
 BR = Piece(PieceColor.BLACK, PieceType.ROOK, "r")
 BN = Piece(PieceColor.BLACK, PieceType.KNIGHT, "n")
 BB = Piece(PieceColor.BLACK, PieceType.BISHOP, "b")

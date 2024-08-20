@@ -1,3 +1,8 @@
+import pyautogui
+import cv2
+import numpy as np
+
+
 def parse_move(move):
     """
     Parse Long algebraic notation chess move.
@@ -16,3 +21,19 @@ def parse_move(move):
     to_square = move[0:2]
     return from_square, to_square
 
+
+def _screenshot(img):
+    # Convert the screenshot to a numpy array
+    img_np = np.array(img)
+    # OpenCV works with images in BGR format,
+    # but pyautogui provides image in RGB format.
+    # Convert the image from RGB to BGR format
+    return cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
+
+
+def screenshot_full():
+    return _screenshot(pyautogui.screenshot())
+
+
+def screenshot_region(x, y, w, h):
+    return _screenshot(pyautogui.screenshot(region=(x, y, w, h)))

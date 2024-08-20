@@ -2,7 +2,7 @@ import copy
 
 from board import Board
 from pieces import (
-    NP,
+    ep,
     BR, BN, BB, BQ, BK, BP,
     WR, WN, WB, WQ, WK, WP,
 )
@@ -18,13 +18,13 @@ def test_nominal_move():
     b.move("c5d4")
     b.b == [
         [BR, BN, BB, BQ, BK, BB, BN, BR],
-        [BP, BP, NP, BP, BP, BP, NP, BP],
-        [NP, NP, NP, NP, NP, NP, BP, NP],
-        [NP, NP, NP, NP, NP, NP, NP, NP],
-        [NP, NP, NP, BP, WP, NP, NP, NP],
-        [NP, NP, NP, NP, NP, NP, NP, NP],
-        [WP, WP, WP, WP, NP, WP, WP, WP],
-        [WR, WN, WB, WQ, WK, WB, NP, WR],
+        [BP, BP, ep, BP, BP, BP, ep, BP],
+        [ep, ep, ep, ep, ep, ep, BP, ep],
+        [ep, ep, ep, ep, ep, ep, ep, ep],
+        [ep, ep, ep, BP, WP, ep, ep, ep],
+        [ep, ep, ep, ep, ep, ep, ep, ep],
+        [WP, WP, WP, WP, ep, WP, WP, WP],
+        [WR, WN, WB, WQ, WK, WB, ep, WR],
     ]
 
 
