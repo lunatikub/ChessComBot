@@ -5,10 +5,19 @@ Enables piece recognition on the board.
 Allows making moves.
 """
 
+import cv2
+import numpy as np
+
 from board import (
     FILES_MAP, REVERSE_FILES_MAP,
     RANKS_MAP, REVERSE_RANKS_MAP,
 )
+
+# BGR squares color on the chess.ocm website.
+WHITE_SQUARE_COLOR = [208, 236, 235]
+BLACK_SQUARE_COLOR = [82, 149, 115]
+YELLOW1_SQUARE_COLOR = [67, 202, 185]
+YELLOW2_SQUARE_COLOR = [130, 246, 245]
 
 
 class Interface():
@@ -34,3 +43,26 @@ class Interface():
         f = REVERSE_FILES_MAP[x // self.sw]
         r = REVERSE_RANKS_MAP[y // self.sh]
         return f + r
+
+
+def get_board_coord(img_fullscreen):
+    """
+    Get the coordinates of a board from a full screenshot.
+    """
+    target_color = np.array(WHITE_SQUARE_COLOR)
+    # Define a small tolerance range around the target color
+    tolerance = np.array([2, 2, 2])
+    # Create the minimum and maximum color ranges
+    lower_color = target_color - tolerance
+    upper_color = target_color + tolerance
+    # Ensure that the color values remain within the [0, 255] range
+    lower_color = np.clip(lower_color, 0, 255)
+    upper_color = np.clip(upper_color, 0, 255)
+    # Create a mask for the target color
+    mask = cv2.inRange(img_fullscreen, lower_color, upper_color)
+    # Find the coordinates of the first non-zero pixel
+    coords = cv2.findNonZero(mask)
+    assert coords is not None
+    x1, y1 = coords[0][0]
+    x2, y2 = coords[-1][-1]
+    return int(x1 - 1), int(y1 - 1), int(x2 + 1), int(y2 + 1)

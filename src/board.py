@@ -43,14 +43,14 @@ class Board():
 
     def __init__(self):
         self.b = [
-            [BR, BN, BB, BQ, BK, BB, BN, BR],
-            [BP, BP, BP, BP, BP, BP, BP, BP],
             [ep, ep, ep, ep, ep, ep, ep, ep],
             [ep, ep, ep, ep, ep, ep, ep, ep],
             [ep, ep, ep, ep, ep, ep, ep, ep],
             [ep, ep, ep, ep, ep, ep, ep, ep],
-            [WP, WP, WP, WP, WP, WP, WP, WP],
-            [WR, WN, WB, WQ, WK, WB, WN, WR],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
         ]
 
     def __str__(self):
@@ -65,6 +65,22 @@ class Board():
             str += REVERSE_RANKS_MAP[i]
             str += "\n"
         return str
+
+    def reset(self):
+        """
+        Reset the chessboard to the initial piece
+        placement conditions.
+        """
+        self.b = [
+            [BR, BN, BB, BQ, BK, BB, BN, BR],
+            [BP, BP, BP, BP, BP, BP, BP, BP],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [ep, ep, ep, ep, ep, ep, ep, ep],
+            [WP, WP, WP, WP, WP, WP, WP, WP],
+            [WR, WN, WB, WQ, WK, WB, WN, WR],
+        ]
 
     def move(self, move):
         """

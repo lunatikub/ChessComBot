@@ -37,3 +37,5 @@ def screenshot_full():
 
 def screenshot_region(x, y, w, h):
     return _screenshot(pyautogui.screenshot(region=(x, y, w, h)))
+
+

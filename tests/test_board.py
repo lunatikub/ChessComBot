@@ -10,6 +10,7 @@ from pieces import (
 
 def test_nominal_move():
     b = Board()
+    b.reset()
     b.move("e2e4")
     b.move("c7c5")
     b.move("g1f3")
@@ -30,6 +31,7 @@ def test_nominal_move():
 
 def test_get_nominal_move_from_diff():
     b1 = Board()
+    b1.reset()
     b2 = copy.deepcopy(b1)
     b2.move("e2e4")
     diff = b1.diff(b2)
@@ -39,6 +41,7 @@ def test_get_nominal_move_from_diff():
 
 def test_get_capturing_move_from_diff():
     b1 = Board()
+    b1.reset()
     b1.move("e2e4")
     b1.move("c7c5")
     b1.move("g1f3")

@@ -45,7 +45,6 @@ class Piece():
         if self.type == PieceType.NONE:
             return ""
         filepath = Path("templates", f"{self.color.value}_{self.type.value}.png")
-        print(filepath.absolute())
         assert filepath.exists(), f"File {filepath} doesn't exist..."
         template = cv2.imread(filepath)
         return cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
