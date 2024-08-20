@@ -5,7 +5,10 @@ Enables piece recognition on the board.
 Allows making moves.
 """
 
-from board import FILES_MAP, RANKS_MAP
+from board import (
+    FILES_MAP, REVERSE_FILES_MAP,
+    RANKS_MAP, REVERSE_RANKS_MAP,
+)
 
 
 class Interface():
@@ -26,3 +29,8 @@ class Interface():
         x = int(self.sw * FILES_MAP[f] + self.half_sw)
         y = int(self.sh * RANKS_MAP[r] + self.half_sh)
         return x, y
+
+    def get_square_from_coord(self, x, y):
+        f = REVERSE_FILES_MAP[x // self.sw]
+        r = REVERSE_RANKS_MAP[y // self.sh]
+        return f + r
