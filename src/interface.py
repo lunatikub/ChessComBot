@@ -7,17 +7,36 @@ Allows making moves.
 
 import cv2
 import numpy as np
+import pyautogui
+import time
 
 from board import (
     FILES_MAP, REVERSE_FILES_MAP,
     RANKS_MAP, REVERSE_RANKS_MAP,
 )
+from recognition import normalize
+from utils import screenshot_region, parse_move
+
 
 # BGR squares color on the chess.ocm website.
 WHITE_SQUARE_COLOR = [208, 236, 235]
 BLACK_SQUARE_COLOR = [82, 149, 115]
 YELLOW1_SQUARE_COLOR = [67, 202, 185]
 YELLOW2_SQUARE_COLOR = [130, 246, 245]
+
+
+def diff_board(b1, b2):
+    """
+    Detect a difference between two boards.
+    """
+    b1 = cv2.resize(b1, (b2.shape[1], b2.shape[0]))
+    difference = cv2.absdiff(b1, b2)
+    gray_difference = cv2.cvtColor(difference, cv2.COLOR_BGR2GRAY)
+    total_diff = np.sum(gray_difference)
+    threshold = 30
+    if total_diff > threshold:
+        return True
+    return False
 
 
 class Interface():
@@ -43,6 +62,27 @@ class Interface():
         f = REVERSE_FILES_MAP[x // self.sw]
         r = REVERSE_RANKS_MAP[y // self.sh]
         return f + r
+
+    def refresh_board(self):
+        board = screenshot_region(self.x, self.y,
+                                  self.w, self.h)
+        self.current_board = normalize(board)
+
+    def move(self, move):
+        from_square, to_square = parse_move(move)
+        x, y = self.get_coord_from_square(from_square)
+        pyautogui.click(x + self.x, y + self.y)
+        x, y = self.get_coord_from_square(to_square)
+        pyautogui.click(x + self.x, y + self.y)
+        pyautogui.moveTo(1, 1)
+
+    def wait_move(self):
+        diff = False
+        while diff is False:
+            board = normalize(screenshot_region(self.x, self.y,
+                                                self.w, self.h))
+            diff = diff_board(self.current_board, board)
+            time.sleep(0.1)
 
 
 def get_board_coord(img_fullscreen):

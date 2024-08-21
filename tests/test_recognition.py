@@ -7,13 +7,14 @@ from pieces import (
     BR, BN, BB, BQ, BK, BP,
     WR, WN, WB, WQ, WK, WP,
 )
-from recognition import recognize
+from recognition import normalize, recognize
 
 
 def test_recognize():
     img_board = cv2.imread("tests/recognition.png")
     h, w, _ = img_board.shape
     interface = Interface(0, 0, w, h)
+    img_board = normalize(img_board)
     board = recognize(interface, img_board)
     assert board.b == [
         [BR, ep, BB, BQ, BK, BB, BN, BR],
@@ -31,6 +32,7 @@ def test_recognize_2():
     img_board = cv2.imread("tests/recognition_2.png")
     h, w, _ = img_board.shape
     interface = Interface(0, 0, w, h)
+    img_board = normalize(img_board)
     board = recognize(interface, img_board)
     assert board.b == [
         [BR, BN, BB, BQ, BK, BB, ep, BR],

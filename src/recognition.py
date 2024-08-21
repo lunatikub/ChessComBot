@@ -76,7 +76,9 @@ def recognize_piece(interface, board, img_board, piece):
 
 
 def recognize(interface, img_board):
-    img_board = normalize(img_board)
+    """
+    Return a board with all pieces recognized from an image of the board.
+    """
     img_board = cv2.cvtColor(img_board, cv2.COLOR_BGR2GRAY)
     board = Board()
     for p in PIECES:
